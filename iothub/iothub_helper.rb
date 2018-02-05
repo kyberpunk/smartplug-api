@@ -1,0 +1,8 @@
+require_relative 'models/errors'
+require_relative 'models/device'
+require_relative 'models/twin'
+require_relative 'models/job_request'
+require_relative 'models/direct_method'
+require_relative 'models/registry_statistics'
+require_relative 'models/service_statistics'
+require_relative 'models/purge_command_queue_result'
