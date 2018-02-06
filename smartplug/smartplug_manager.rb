@@ -9,6 +9,7 @@ class SmartplugManager
 
   def get_smartplug(device_id)
     device = @device_manager.get_device(device_id)
+    return null unless device
     twin = @twin_manager.get_twin(device_id)
     SmartplugDevice.create(device, twin)
   end
@@ -49,7 +50,7 @@ class SmartplugManager
     method = DirectMethod.new
     method.method_name = name
     method.connect_timeout = @options.connect_timeout
-    method.response_timeout = @oprions.response_timeout
+    method.response_timeout = @options.response_timeout
     method
   end
 

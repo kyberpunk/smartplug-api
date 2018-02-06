@@ -9,12 +9,13 @@ class PowerMonitor
 
   def get_direct_data(device_id)
     twin = @twin_manager.get_twin(device_id)
-    timeout = Time.iso8601(twin.properties.desired[:directDataTimeout])
-    if !timeout || (timeout - Time.utc).to_i.abs <= 5
-      start_direct_data(device_id)
-      twin.properties.desired[:directDataTimeout] = timeout + @options.direct_data_timeout
-      twin = @twin_manager.update_twin(twin)
-    end
+    # this code is only for start method calling on backend without client concerns
+    # timeout = Time.iso8601(twin.properties.desired[:directDataTimeout])
+    # if !timeout || (timeout - Time.utc).to_i.abs <= 5
+    #  start_direct_data(device_id)
+    #  twin.properties.desired[:directDataTimeout] = timeout + @options.direct_data_timeout
+    #  twin = @twin_manager.update_twin(twin)
+    # end
     DirectData.create(twin)
   end
 

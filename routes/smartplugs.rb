@@ -16,7 +16,7 @@ class SmartplugApi < Sinatra::Application
     status 204
   end
 
-  get '/smartplug/:id/directdata' do
+  get '/smartplugs/:id/directdata' do
     protected!
     outlet = DatabaseHelper.outlet_by_user_id(params[:id], @user_id)
     not_found unless outlet
@@ -24,7 +24,7 @@ class SmartplugApi < Sinatra::Application
     MultiJson.dump(power_monitor.get_direct_data(outlet[:device_id]))
   end
 
-  post '/smartplug/:id/directdata/start' do
+  post '/smartplugs/:id/directdata/start' do
     protected!
     outlet = DatabaseHelper.outlet_by_user_id(params[:id], @user_id)
     not_found unless outlet

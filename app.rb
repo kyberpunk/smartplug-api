@@ -4,13 +4,13 @@ require 'sinatra/json'
 require 'openssl'
 require 'jwt'
 require './helpers/database_helper'
-require './config/environments'
+require './smartplug/smartplug'
 require './models/home'
 require './models/user'
 require './models/appliance'
 require './models/outlet'
 require './iothub/client'
-require './smartplug/smartplug'
+require './config/environments'
 
 # JWT authentication based on example: https://github.com/nickdufresne/jwt-sinatra-example
 signing_key_path = File.expand_path("../app.rsa", __FILE__)
@@ -29,6 +29,9 @@ end
 
 set :signing_key, signing_key
 set :verify_key, verify_key
+
+set :show_exceptions, false
+set :raise_errors, false
 
 class SmartplugApi < Sinatra::Application
   helpers do
@@ -102,11 +105,14 @@ class SmartplugApi < Sinatra::Application
     end
   end
 
-  get '/' do
-    'Hello world'
+  error IotHubError, SmartplugError do
+    status 400
+    MultiJson.dump(message: env['sinatra.error'].message)
   end
 end
 
 require_relative 'routes/homes'
 require_relative 'routes/appliances'
+require_relative 'routes/outlets'
+require_relative 'routes/smartplugs'
 require_relative 'routes/users'

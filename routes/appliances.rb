@@ -20,10 +20,10 @@ class SmartplugApi < Sinatra::Application
 
   post '/appliances' do
     protected!
-    new_appliance = MultiJson.load(request.body.read)
+    new_appliance = MultiJson.load(request.body.read, symbolize_keys: true)
     home = Home.find_by(id: new_appliance[:home_id], user_id: @user_id)
     not_found unless home
-    appliance = Home.new(new_appliance)
+    appliance = Appliance.new(new_appliance)
     save_record(appliance)
   end
 
@@ -31,7 +31,7 @@ class SmartplugApi < Sinatra::Application
     protected!
     appliance = DatabaseHelper.appliance_by_user_id(params[:id], @user_id)
     not_found unless appliance
-    updated_appliance = MultiJson.load(request.body.read)
+    updated_appliance = MultiJson.load(request.body.read, symbolize_keys: true)
     appliance.update(name: updated_appliance[:name],
                      appliance_type: updated_appliance[:appliance_type])
     save_record(appliance)

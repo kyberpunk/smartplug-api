@@ -24,7 +24,7 @@ class SmartplugApi < Sinatra::Application
 
   patch '/users/self' do
     protected!
-    updated_user = MultiJson.load(request.body.read)
+    updated_user = MultiJson.load(request.body.read, symbolize_keys: true)
     user = User.find(@user_id)
     pwd_user = PasswordUser.new(user)
     user[:user_name] = updated_user[:user_name] if updated_user[:user_name]

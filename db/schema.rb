@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20180206145926) do
   create_table "appliances", force: :cascade do |t|
     t.string "name", null: false
     t.string "appliance_type"
-    t.integer "home_id"
+    t.integer "home_id", null: false
   end
 
   create_table "homes", force: :cascade do |t|
@@ -28,13 +28,13 @@ ActiveRecord::Schema.define(version: 20180206145926) do
     t.string "street"
     t.string "zip_code"
     t.string "country_code"
-    t.integer "user_id"
+    t.integer "user_id", null: false
   end
 
   create_table "outlets", force: :cascade do |t|
     t.string "name", null: false
-    t.string "device_id"
-    t.integer "home_id"
+    t.string "device_id", null: false
+    t.integer "home_id", null: false
     t.integer "appliance_id"
   end
 
