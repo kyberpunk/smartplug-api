@@ -1,11 +1,13 @@
 source 'https://rubygems.org'
 
 gem 'activerecord'
+gem 'bcrypt'
+gem 'jwt'
 gem 'multi_json'
 gem 'pg', '~>0.18'
 gem 'sinatra'
 gem 'sinatra-activerecord'
-gem 'sinatra-namespace'
+gem 'sinatra-contrib'
 gem 'thin'
 
 # for automatic refreshing server after files change uncomment shotgun
