@@ -282,3 +282,29 @@ Get latest direct data. Returns 200 with direct data resource.
 Force SmartPlug device to start sending direct data. Returns status 204.
 
 ## Authentication
+
+SmartPlug API use JWT authentication tokens. More information about JWT you can found here: https://jwt.io/.
+
+* `POST /users/login`
+
+Login user with given credentials. Returns 200 with JWT token in the body.
+
+Request body:
+```
+{
+   "user_name": "string",
+   "password": "string"
+}
+```
+
+Response body:
+```
+{
+   "token": "base64 string",
+   "expiration": "time"
+}
+```
+
+Application requires JWT token in `Authorization` HTTP header in format:
+
+`Authorization: Bearer <JWT token base64 string>`
