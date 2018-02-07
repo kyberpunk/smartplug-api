@@ -145,7 +145,7 @@ Get appliance resources related to the home. Returns 200 with appliance resource
 
 Get outlet resources related to the home. Returns 200 with outlet resources.
 
-### Appliance resource
+### Appliances resource
 
 Appliance resource represents the appliance which can be plugged into outlet (SmartPlug device).
 
@@ -185,7 +185,7 @@ Delete appliance resource. Returns 204.
 
 Get outlet resource related to the appliance if any. Returns 200 with outlet resource.
 
-### Oulet resource
+### Oulets resource
 
 Outlet resource represents the SmartPlug device abstraction for bussines logic.
 
@@ -225,5 +225,60 @@ Delete outlet resource. Returns 204.
 * `GET /outlets/:id/appliance`
 
 Get appliance resource related to the outlet if any. Returns 200 with appliance resource.
+
+### SmartPlugs resource
+
+SmarPlug resource contains harware related information about the device.
+
+#### JSON:
+```
+{  
+   "device_id": "string",
+   "actual_firmware_version": "string",
+   "firmware_status": "Ok|Running|Failed",
+   "firmware_status_updated_time": "time",
+   "local_network_ssid": "string",
+   "local_network_ip": "string",
+   "is_switched_on": bool,
+   "is_switched_on_updated_time": "time",
+   "connection_state": "Disconnected|Connected",
+   "connection_state_updated_time": "time"
+}
+```
+
+#### Resources:
+
+* `GET /smarplugs/:outlet_id`
+
+Get SmartPlug resource related to the outlet. Returns 200 with SmartPlug resource.
+
+* `POST /smarplugs/:outlet_id/switch?value=bool`
+
+Switch the device relay on (true) or off (false). Returns 204.
+
+### Direct data resource
+
+Direct data resource contains latest measurement data.
+
+#### JSON:
+```
+{  
+   "period": long,
+   "timestamp": long,
+   "active_power": float,
+   "rms_voltage": float,
+   "rms_current": float
+}
+```
+
+#### Resources:
+
+* `GET /smarplugs/:outlet_id/directdata`
+
+Get latest direct data. Returns 200 with direct data resource.
+
+* `POST /smarplugs/:outlet_id/directdata/start`
+
+Force SmartPlug device to start sending direct data. Returns status 204.
 
 ## Authentication
