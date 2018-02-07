@@ -285,7 +285,7 @@ Force SmartPlug device to start sending direct data. Returns status 204.
 
 SmartPlug API uses the simple implementation of JWT authentication tokens. More information about JWT you can found here: https://jwt.io/.
 
-Authentication implementation is base on Nick Dufresne sample project: https://github.com/nickdufresne/jwt-sinatra-example/blob/master/README.md.
+Authentication implementation is base on Nick Dufresne sample project: https://github.com/nickdufresne/jwt-sinatra-example/.
 
 * `POST /users/login`
 
