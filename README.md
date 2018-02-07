@@ -36,7 +36,22 @@ SmartPlug management is located in [/smartplug](https://github.com/kyberpunk/sma
 
 At first you should deploy PostgreSQL database (or any other) and fill connection configuration in [database.yml](https://github.com/kyberpunk/smartplug-api/blob/master/config/database.yml). Next you should have access to IoT Hub service and set its connection string in [database.yml](https://github.com/kyberpunk/smartplug-api/blob/master/config/iothub.yml) (service role at least).
 
+Next you need to generate RSA key for JWT authentication. You can use openssl on Linux:
+
+`openssl genrsa -out app.rsa 2048`
+
+`openssl rsa -in app.rsa -pubout > app.rsa.pub`
+
+Now install gems and run the application localy listening on port 8000. 
+
+```
+bundle install
+bundle exec rackup config.ru -p 8000 -s thin -o "0.0.0.0"
+```
+
 ## Docker
+
+There is also [Dockerfile](https://github.com/kyberpunk/smartplug-api/blob/master/Dockerfile) you can use for deploying docker image with appliacation anywhere.
 
 ## REST API Resources
 
