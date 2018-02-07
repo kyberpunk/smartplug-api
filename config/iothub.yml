@@ -1,0 +1,11 @@
+development:
+  connection_string:
+  expiry: 3600
+
+test:
+  connection_string:
+  expiry: 3600
+
+production:
+  connection_string:
+  expiry: 3600

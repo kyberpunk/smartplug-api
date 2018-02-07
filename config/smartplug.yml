@@ -1,0 +1,17 @@
+development:
+  response_timeout: 5
+  connect_timeout: 5
+  direct_data_duration: 60
+  direct_data_timeout: 60
+
+test:
+  response_timeout: 5
+  connect_timeout: 5
+  direct_data_duration: 60
+  direct_data_timeout: 60
+
+production:
+  response_timeout: 5
+  connect_timeout: 5
+  direct_data_duration: 60
+  direct_data_timeout: 60
