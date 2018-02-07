@@ -14,6 +14,9 @@ ActiveRecord::Schema.define(version: 20180206145926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
+  enable_extension "pg_buffercache"
+  enable_extension "pgioc"
 
   create_table "appliances", force: :cascade do |t|
     t.string "name", null: false

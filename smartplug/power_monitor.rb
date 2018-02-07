@@ -25,6 +25,8 @@ class PowerMonitor
     method.connect_timeout = @options.connect_timeout
     method.payload = { timeout: @options.direct_data_timeout }
     method.method_name = 'startdirectdata'
-    @twin_manager.invoke_method(device_id, method)
+    payload = @twin_manager.invoke_method(device_id, method)
+    payload = payload
+    nil
   end
 end

@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 require 'sinatra/json'
 require 'openssl'
 require 'jwt'
+require 'multi_json'
 require './helpers/database_helper'
 require './smartplug/smartplug'
 require './models/home'
@@ -32,6 +33,8 @@ set :verify_key, verify_key
 
 set :show_exceptions, false
 set :raise_errors, false
+
+MultiJson.use(:oj)
 
 class SmartplugApi < Sinatra::Application
   helpers do
@@ -115,7 +118,11 @@ class SmartplugApi < Sinatra::Application
 
   error IotHubError, SmartplugError do
     status 400
-    MultiJson.dump(message: env['sinatra.error'].message)
+    json(message: env['sinatra.error'].message)
+  end
+
+  get '/' do
+    json('SMARTPLUG_API')
   end
 end
 

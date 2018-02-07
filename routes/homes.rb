@@ -38,11 +38,19 @@ class SmartplugApi < Sinatra::Application
     status 204
   end
 
-  get 'homes/:id/appliances' do
+  get '/homes/:id/appliances' do
     protected!
     home = Home.find_by(id: params[:id], user_id: @user_id)
     not_found unless home
     appliances = DatabaseHelper.home_appliances_by_user_id(home[:id], @user_id)
     json(appliances)
+  end
+
+  get '/homes/:id/outlets' do
+    protected!
+    home = Home.find_by(id: params[:id], user_id: @user_id)
+    not_found unless home
+    outlets = DatabaseHelper.home_outlets_by_user_id(home[:id], @user_id)
+    json(outlets)
   end
 end

@@ -3,6 +3,7 @@ require 'bcrypt'
 class User < ActiveRecord::Base
   has_many :homes
   validates :user_name, uniqueness: true
+  validates_format_of :email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 end
 
 class PasswordUser

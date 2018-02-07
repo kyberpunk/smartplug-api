@@ -60,7 +60,7 @@ class SmartplugApi < Sinatra::Application
       @token = JWT.encode({ user_id: user[:id] }, settings.signing_key, 'RS256',
                           headers)
       status 200
-      json(jwt_token: @token, expiration: headers[:exp])
+      json(token: @token, expiration: Time.new(headers[:exp]))
     else
       status 401
     end
