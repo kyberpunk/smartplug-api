@@ -55,13 +55,13 @@ There is also [Dockerfile](https://github.com/kyberpunk/smartplug-api/blob/maste
 
 ## REST API Resources
 
-REST API uses JSON content type for all resources. All resources require authentication. API returns 400 BadRequest HTTP status code if any handled error occurs.
+REST API uses JSON content type for all resources. All resources require authentication. API returns 400 BadRequest HTTP status code if any handled error occurs. API returns 401 Unauthorized status code when user not authorized.
 
 ### Users resource
 
 Users resource contains information about users.
 
-JSON:
+#### JSON:
 ```
 {  
    "id": integer,
@@ -70,7 +70,7 @@ JSON:
 }
 ```
 
-Resources:
+#### Resources:
 
 * `GET /users/self`
 
@@ -98,5 +98,43 @@ Update user resource properties. Returns 201 with updated user resource.
 Delete currently signed user. Returns 204.
 
 ### Homes resource
+
+Home resource serve as container for outlets and appliances used in one location.
+
+#### JSON:
+```
+{  
+   "id": integer,
+   "name": "string",
+   "apartment": "string",
+   "city": "string",
+   "street": "string",
+   "zip_code": "string",
+   "country_code": "string",
+   "user_id": integer
+}
+```
+
+#### Resources:
+
+* `GET /homes`
+
+Get all user homes. Returns 200 with home resources.
+
+* `GET /homes/:id`
+
+Get home resource by ID. Returns 200 with home resource.
+
+* `POST /homes`
+
+Create new home resource. Returns 201 with created home resource.
+
+* `PUT /homes/:id`
+
+Update home resource. Returns 201 with updated home resource.
+
+* `DELETE /homes/:id`
+
+Delete home resource. Returns 204.
 
 ## Authentication
