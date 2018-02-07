@@ -55,4 +55,23 @@ There is also [Dockerfile](https://github.com/kyberpunk/smartplug-api/blob/maste
 
 ## REST API Resources
 
+REST API uses JSON content type for all resources. All resources require authentication.
+
+### Users resource
+
+Users resource contains information about users.
+
+JSON:
+```
+{  
+   "id": integer,
+   "user_name": "string",
+   "email": "string"
+}
+```
+
+Resources:
+`GET /users/self`
+Get currently signed user resource.
+
 ## Authentication
