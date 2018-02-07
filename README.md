@@ -137,4 +137,93 @@ Update home resource. Returns 201 with updated home resource.
 
 Delete home resource. Returns 204.
 
+* `GET /homes/:id/appliances`
+
+Get appliance resources related to the home. Returns 200 with appliance resources.
+
+* `GET /homes/:id/outlets`
+
+Get outlet resources related to the home. Returns 200 with outlet resources.
+
+### Appliance resource
+
+Appliance resource represents the appliance which can be plugged into outlet (SmartPlug device).
+
+#### JSON:
+```
+{  
+   "id": integer,
+   "name": "string",
+   "appliance_type": "string",
+   "home_id": integer
+}
+```
+
+#### Resources:
+
+* `GET /appliances`
+
+Get all user appliances. Returns 200 with appliance resources.
+
+* `GET /appliances/:id`
+
+Get appliance resource by ID. Returns 200 with appliance resource.
+
+* `POST /appliances`
+
+Create new appliance resource. Returns 201 with created appliance resource.
+
+* `PUT /appliances/:id`
+
+Update appliance resource. Returns 201 with updated appliance resource.
+
+* `DELETE /appliances/:id`
+
+Delete appliance resource. Returns 204.
+
+* `GET /appliances/:id/outlet`
+
+Get outlet resource related to the appliance if any. Returns 200 with outlet resource.
+
+### Oulet resource
+
+Outlet resource represents the SmartPlug device abstraction for bussines logic.
+
+#### JSON:
+```
+{  
+   "id": integer,
+   "name": "string",
+   "device_id": "string",
+   "home_id": integer,
+   "appliance_id": integer
+}
+```
+
+#### Resources:
+
+* `GET /outlets`
+
+Get all user outlets. Returns 200 with outlet resources.
+
+* `GET /outlets/:id`
+
+Get outlet resource by ID. Returns 200 with outlet resource.
+
+* `POST /outlets`
+
+Create new outlet resource. Returns 201 with created outlet resource. Device with provided device ID must be present in the IoT Hub service registry.
+
+* `PUT /outlets/:id`
+
+Update outlet resource. Returns 201 with updated outlet resource.
+
+* `DELETE /outlets/:id`
+
+Delete outlet resource. Returns 204.
+
+* `GET /outlets/:id/appliance`
+
+Get appliance resource related to the outlet if any. Returns 200 with appliance resource.
+
 ## Authentication
