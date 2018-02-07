@@ -6,11 +6,17 @@ This repository contains API implementation for controlling Hexade SmartPlug dev
 
 ## Device
 
+Device is base on low-cost [ESP-32 SoC](https://www.espressif.com/en/products/hardware/esp32/overview). The chip integrates WiFi and Bluetooth radio. Device contains accurate measuring integrated circuit and the relay for power switching.
+
+You can find sample web presentation with additional information on: https://www.smartplug.cz/.
+
 ## Infrastrucutre
+
+For communication and devices control is used the [Azure IoT Hub](https://docs.microsoft.com/en-us/azure/iot-hub/) service which is part of the [Azure IoT Solution](https://azure.microsoft.com/cs-cz/services/iot-hub/).
 
 ## Modules
 
-## Running
+## Configuration and Running
 
 ## Docker
 
