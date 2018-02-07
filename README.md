@@ -18,10 +18,24 @@ For communication and devices control is used the [Azure IoT Hub](https://docs.m
 
 ## Modules
 
+The application consists of three main modules.
 
+### IoT Hub service client
+
+This module provides functionality for communication with IoT Hub service. There are implemented libraries for device idnetities, device twins and jobs management. For more information read the IoT Hub docs.
+
+Sources are contained in */iothub* folder.
+
+### SmartPlug management
+
+SmartPlug management is located in */smartplug* folder and provides logic for SmartPlug devices control and reading measurement data. Measurement data delivery is not real time, but requires polling due to REST API and HTTP specification. There can be used Websockets etc. in real use cases.
 
 ## Configuration and Running
+
+
 
 ## Docker
 
 ## REST API Resources
+
+## Authentication
