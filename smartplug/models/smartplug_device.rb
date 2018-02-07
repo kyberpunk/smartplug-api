@@ -1,3 +1,4 @@
+# Class contains necessary information about smartplug device
 class SmartplugDevice
   attr_accessor :device_id
   attr_accessor :actual_firmware_version

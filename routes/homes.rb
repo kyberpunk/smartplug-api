@@ -1,16 +1,19 @@
 class SmartplugApi < Sinatra::Application
+  # Get home resources related to the currently signed user
   get '/homes' do
     protected!
     homes = Home.where(user_id: @user_id)
     json(homes)
   end
 
+  # Get home resource by id
   get '/homes/:id' do
     protected!
     home = Home.find_by(id: params[:id], user_id: @user_id)
     home ? json(home) : not_found
   end
 
+  # Create new home resource
   post '/homes' do
     protected!
     new_home = from_json
@@ -19,6 +22,7 @@ class SmartplugApi < Sinatra::Application
     save_record(home)
   end
 
+  # Update home resource
   put '/homes/:id' do
     protected!
     home = Home.find_by(id: params[:id], user_id: @user_id)
@@ -30,6 +34,7 @@ class SmartplugApi < Sinatra::Application
     save_record(home)
   end
 
+  # Delete home resource
   delete '/homes/:id' do
     protected!
     home = Home.find_by(id: params[:id], user_id: @user_id)
@@ -38,6 +43,7 @@ class SmartplugApi < Sinatra::Application
     status 204
   end
 
+  # Get appliance resources related to the home
   get '/homes/:id/appliances' do
     protected!
     home = Home.find_by(id: params[:id], user_id: @user_id)
@@ -46,6 +52,7 @@ class SmartplugApi < Sinatra::Application
     json(appliances)
   end
 
+  # Get outlet resources related to the home
   get '/homes/:id/outlets' do
     protected!
     home = Home.find_by(id: params[:id], user_id: @user_id)

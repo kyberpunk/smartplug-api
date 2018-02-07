@@ -1,6 +1,7 @@
 require_relative 'direct_method'
 require_relative 'twin'
 
+# Iot Hub job request
 class JobRequest
   attr_accessor :job_id
   attr_accessor :type
@@ -19,6 +20,7 @@ class JobRequest
   end
 end
 
+# Job statistics
 class JobStatistics
   attr_accessor :device_count
   attr_accessor :failed_count
@@ -37,6 +39,7 @@ class JobStatistics
   end
 end
 
+# Response with results of job request
 class JobResponse
   attr_accessor :job_id
   attr_accessor :type
@@ -71,6 +74,7 @@ class JobResponse
   end
 end
 
+# Query result with continuation link
 class QueryResultWithContinuation
   attr_accessor :value
   attr_accessor :next_link

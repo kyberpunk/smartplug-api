@@ -14,6 +14,8 @@ require './iothub/client'
 require './config/environments'
 
 # JWT authentication based on example: https://github.com/nickdufresne/jwt-sinatra-example
+
+# Load signing keys
 signing_key_path = File.expand_path("../app.rsa", __FILE__)
 verify_key_path = File.expand_path("../app.rsa.pub", __FILE__)
 
@@ -31,19 +33,21 @@ end
 set :signing_key, signing_key
 set :verify_key, verify_key
 
+# Disable showing errors
 set :show_exceptions, false
 set :raise_errors, false
 
-MultiJson.use(:oj)
-
+# Main Sinatra API class
 class SmartplugApi < Sinatra::Application
   helpers do
+    # Check authentication
     def protected!
       return if authorized?
       @user_id = nil
       halt 401
     end
 
+    # Extract JWT token from Authorization HTTP header
     def extract_token
       header = request.env['HTTP_AUTHORIZATION']
       return nil unless header
@@ -51,6 +55,7 @@ class SmartplugApi < Sinatra::Application
       match.captures ? match.captures[0] : nil
     end
 
+    # Verify user authentication token
     def authorized?
       @token = extract_token
       begin
@@ -74,7 +79,7 @@ class SmartplugApi < Sinatra::Application
 
         @user_id = payload['user_id']
 
-      rescue JWT::DecodeError => e
+      rescue JWT::DecodeError
         return false
       end
     end

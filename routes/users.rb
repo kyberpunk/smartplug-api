@@ -1,4 +1,5 @@
 class SmartplugApi < Sinatra::Application
+  # Get currently signed user resource
   get '/users/self' do
     protected!
     user = User.find(@user_id)
@@ -7,6 +8,7 @@ class SmartplugApi < Sinatra::Application
          email: user[:email])
   end
 
+  # Register new user
   post '/users' do
     new_user = from_json
     user = User.new(user_name: new_user[:user_name], email: new_user[:email])
@@ -22,6 +24,7 @@ class SmartplugApi < Sinatra::Application
     end
   end
 
+  # Update currently signed user resource
   patch '/users/self' do
     protected!
     updated_user = from_json
@@ -40,6 +43,7 @@ class SmartplugApi < Sinatra::Application
     end
   end
 
+  # Delete currently signed user resource
   delete '/users/self' do
     protected!
     user = User.find(@user_id)
@@ -48,6 +52,7 @@ class SmartplugApi < Sinatra::Application
     status 204
   end
 
+  # Login and return JWT authorization token
   post '/users/login' do
     credentials = from_json
     user = User.find_by(user_name: credentials[:user_name])
@@ -66,6 +71,7 @@ class SmartplugApi < Sinatra::Application
     end
   end
 
+  # Logout user
   post '/users/logout' do
     protected!
   end

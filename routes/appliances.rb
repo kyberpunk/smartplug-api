@@ -1,16 +1,19 @@
 class SmartplugApi < Sinatra::Application
+  # Get appliance resources
   get '/appliances' do
     protected!
     appliances = DatabaseHelper.appliances_by_user_id(@user_id)
     json(appliances)
   end
 
+  # Get appliance by id
   get '/appliances/:id' do
     protected!
     appliance = DatabaseHelper.appliance_by_user_id(params[:id], @user_id)
     appliance ? json(appliance) : not_found
   end
 
+  # Get outlet resource assigned to the appliance if any
   get '/appliances/:id/outlet' do
     protected!
     appliance = DatabaseHelper.appliance_by_user_id(params[:id], @user_id)
@@ -18,6 +21,7 @@ class SmartplugApi < Sinatra::Application
     json(appliance.outlet)
   end
 
+  # Create new appliance resource
   post '/appliances' do
     protected!
     new_appliance = from_json
@@ -27,6 +31,7 @@ class SmartplugApi < Sinatra::Application
     save_record(appliance)
   end
 
+  # Update appliance resource
   put '/appliances/:id' do
     protected!
     appliance = DatabaseHelper.appliance_by_user_id(params[:id], @user_id)
@@ -37,6 +42,7 @@ class SmartplugApi < Sinatra::Application
     save_record(appliance)
   end
 
+  # Delete appliance resource
   delete '/appliances/:id' do
     protected!
     appliance = DatabaseHelper.appliance_by_user_id(params[:id], @user_id)

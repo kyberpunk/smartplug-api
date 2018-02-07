@@ -5,9 +5,11 @@ class IotHubOptions
   attr_accessor :host
   attr_accessor :expiry
 
+  # Set Iot Hub options
   def initialize(options = nil)
     return unless options
     options = options.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+    # Parse connection string
     match = options[:connection_string].match(/HostName=(.*);SharedAccessKeyName=(.*);SharedAccessKey=(.*)/)
     if match.captures
       @host, @key_name, @key = match.captures

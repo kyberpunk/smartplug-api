@@ -1,16 +1,19 @@
 class SmartplugApi < Sinatra::Application
+  # Get all outlet resources
   get '/outlets' do
     protected!
     outlets = DatabaseHelper.outlets_by_user_id(@user_id)
     json(outlets)
   end
 
+  # Get outlet resource by ID
   get '/outlets/:id' do
     protected!
     outlet = DatabaseHelper.outlet_by_user_id(params[:id], @user_id)
     outlet ? json(outlet) : not_found
   end
 
+  # Get appliance resource assigned to the outlet if any
   get '/outlets/:id/appliance' do
     protected!
     outlet = DatabaseHelper.outlet_by_user_id(params[:id], @user_id)
@@ -18,6 +21,7 @@ class SmartplugApi < Sinatra::Application
     json(outlet.appliance)
   end
 
+  # Create new outlet resource. Device with specified device ID must be present in Iot Hub registry.
   post '/outlets' do
     protected!
     new_outlet = from_json
@@ -35,6 +39,7 @@ class SmartplugApi < Sinatra::Application
     save_record(outlet)
   end
 
+  # Update outlet resource
   put '/outlets/:id' do
     protected!
     outlet = DatabaseHelper.outlet_by_user_id(params[:id], @user_id)
@@ -50,6 +55,7 @@ class SmartplugApi < Sinatra::Application
     save_record(outlet)
   end
 
+  # Delete outlet resource
   delete '/outlets/:id' do
     protected!
     outlet = DatabaseHelper.outlet_by_user_id(params[:id], @user_id)

@@ -1,3 +1,4 @@
+# Purge command queue representation
 class PurgeCommandQueueResult
   attr_accessor :total_messages_purged
   attr_accessor :device_id

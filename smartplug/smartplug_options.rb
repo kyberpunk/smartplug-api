@@ -1,9 +1,11 @@
+# Smartplug library options
 class SmartplugOptions
   attr_accessor :response_timeout
   attr_accessor :connect_timeout
   attr_accessor :direct_data_duration
   attr_accessor :direct_data_timeout
 
+  # Set config options
   def initialize(options = nil)
     return unless options
     options = options.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }

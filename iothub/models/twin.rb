@@ -1,3 +1,4 @@
+# Twin desired properties (updated by backend)
 class DesiredProperties < Hash
   def version
     self[:'$version']
@@ -8,6 +9,7 @@ class DesiredProperties < Hash
   end
 end
 
+# Twin reported properties (updated by device)
 class ReportedProperties < Hash
   def version
     self[:'$version']
@@ -18,6 +20,7 @@ class ReportedProperties < Hash
   end
 end
 
+# Twin properties
 class Properties
   attr_accessor :desired
   attr_accessor :reported
@@ -36,6 +39,7 @@ class Properties
   end
 end
 
+# Device twin data
 class Twin
   attr_accessor :device_id
   attr_accessor :etag

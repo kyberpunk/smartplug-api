@@ -1,3 +1,4 @@
+# Iot Hub direct method data representation
 class DirectMethod
   attr_accessor :method_name
   attr_accessor :payload

@@ -1,3 +1,4 @@
+# Outlet entity model
 class Outlet < ActiveRecord::Base
   belongs_to :home
   belongs_to :appliance

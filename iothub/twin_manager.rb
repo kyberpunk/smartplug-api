@@ -2,24 +2,31 @@ require 'api_client'
 require 'iothub_helper'
 require 'json'
 
+# Class provides methods for device twins management including direct methods
+# invocation.
+# For more information read: https://docs.microsoft.com/en-us/rest/api/iothub/devicetwinapi
 class TwinManager
   API_VERSION = '2016-11-14'.freeze
 
+  # Set twin manager options
   def initialize(options)
     @options = options
     @api_version_param = { :'api-version' => API_VERSION }
   end
 
+  # Get device twin
   def get_twin(device_id)
     client = IotHubApiClient.new(@options)
     res = client.get(twins_path(device_id), @api_version_param)
     Twin.create(response_json(res))
   end
 
+  # Update twin properties
   def update_twin(twin)
     update_twin_properties(twin.device_id, twin.properties.desired)
   end
 
+  # Update twin properties
   def update_twin_properties(device_id, desired_properties)
     client = IotHubApiClient.new(@options)
     properties = { properties: { desired: desired_properties } }
@@ -28,6 +35,7 @@ class TwinManager
     Twin.create(response_json(res))
   end
 
+  # Query device twins
   def query_twins(query)
     client = IotHubApiClient.new(@options)
     res = client.post('/devices/query', @api_version_param,
@@ -37,6 +45,7 @@ class TwinManager
     end
   end
 
+  # Invoke direct method on the device
   def invoke_method(device_id, direct_method)
     client = IotHubApiClient.new(@options)
     res = client.post("#{twins_path(device_id)}/methods", @api_version_param,

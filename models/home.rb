@@ -1,3 +1,4 @@
+# User home model
 class Home < ActiveRecord::Base
   has_many :appliances
   has_many :outlets

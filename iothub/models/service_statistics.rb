@@ -1,3 +1,4 @@
+# Iot Hub service statistics
 class ServiceStatistics
   attr_accessor :connected_device_count
 

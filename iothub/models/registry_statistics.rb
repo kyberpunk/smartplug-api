@@ -1,3 +1,4 @@
+# Iot Hub devices registry statistics
 class RegistryStatistics
   attr_accessor :total_device_count
   attr_accessor :enabled_device_count

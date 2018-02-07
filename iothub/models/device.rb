@@ -1,3 +1,4 @@
+# X.509 certificate thumbprints for authentication
 class X509Thumbprint
   attr_accessor :primary_thumbprint
   attr_accessor :secondary_thumbprint
@@ -15,6 +16,7 @@ class X509Thumbprint
   end
 end
 
+# Symmetric keys for Shared Access Signature authentication
 class SymmetricKey
   attr_accessor :primary_key
   attr_accessor :secondary_key
@@ -31,6 +33,7 @@ class SymmetricKey
   end
 end
 
+# Iot Hub authentication credentials
 class Authentication
   attr_accessor :symmetric_key
   attr_accessor :x509_thumbprint
@@ -48,6 +51,7 @@ class Authentication
   end
 end
 
+# Device identity data
 class Device
   attr_accessor :device_id
   attr_accessor :generation_id

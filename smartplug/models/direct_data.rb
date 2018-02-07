@@ -1,3 +1,4 @@
+# Smart plug direct data representation
 class DirectData
   attr_accessor :timestamp
   attr_accessor :period

@@ -10,6 +10,7 @@ class SASGenerator
     @options = options
   end
 
+  # Generate authorization token
   def generate_token(expiry, uri_path)
     timestamp = Time.now.getutc.to_i + expiry
     uri = CGI.escape(uri_path)
@@ -17,6 +18,7 @@ class SASGenerator
     "SharedAccessSignature sr=#{uri}&sig=#{signature}&se=#{timestamp}&skn=#{@options.key_name}"
   end
 
+  # Generate SAS signature
   def generate_signature(timestamp, uri_path)
     uri = CGI.escape(uri_path)
     content = "#{uri}\n#{timestamp}"
