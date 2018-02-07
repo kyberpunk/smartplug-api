@@ -16,6 +16,8 @@ You can find sample web presentation with additional information on: https://www
 
 For communication and devices control is used the [Azure IoT Hub](https://docs.microsoft.com/en-us/azure/iot-hub/) service which is part of the [Azure IoT Solution](https://azure.microsoft.com/cs-cz/services/iot-hub/). For more information read the docs.
 
+REST API needs also any database for bussines logic. I've used [PostgreSQL](https://www.postgresql.org/) in the example. You can change adapters to use any database.
+
 ## Modules
 
 The application consists of three main modules.
@@ -24,15 +26,15 @@ The application consists of three main modules.
 
 This module provides functionality for communication with IoT Hub service. There are implemented libraries for device idnetities, device twins and jobs management. For more information read the IoT Hub docs.
 
-Sources are contained in */iothub* folder.
+Sources are contained in [/iothub](https://github.com/kyberpunk/smartplug-api/tree/master/iothub) folder.
 
 ### SmartPlug management
 
-SmartPlug management is located in */smartplug* folder and provides logic for SmartPlug devices control and reading measurement data. Measurement data delivery is not real time, but requires polling due to REST API and HTTP specification. There can be used Websockets etc. in real use cases.
+SmartPlug management is located in [/smartplug](https://github.com/kyberpunk/smartplug-api/tree/master/smartplug) folder and provides logic for SmartPlug devices control and reading measurement data. Measurement data delivery is not real time, but requires polling due to REST API and HTTP specification. There can be used Websockets etc. in real use cases.
 
 ## Configuration and Running
 
-
+At first you should deploy PostgreSQL database (or any other) and fill connection configuration in [database.yml](https://github.com/kyberpunk/smartplug-api/blob/master/config/database.yml). Next you should have access to IoT Hub service and set its connection string in [database.yml](https://github.com/kyberpunk/smartplug-api/blob/master/config/iothub.yml) (service role at least).
 
 ## Docker
 
