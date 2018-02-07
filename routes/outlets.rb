@@ -2,25 +2,25 @@ class SmartplugApi < Sinatra::Application
   get '/outlets' do
     protected!
     outlets = DatabaseHelper.outlets_by_user_id(@user_id)
-    MultiJson.dump(outlets)
+    json(outlets)
   end
 
   get '/outlets/:id' do
     protected!
     outlet = DatabaseHelper.outlet_by_user_id(params[:id], @user_id)
-    outlet ? MultiJson.dump(outlet) : not_found
+    outlet ? json(outlet) : not_found
   end
 
   get '/outlets/:id/appliance' do
     protected!
     outlet = DatabaseHelper.outlet_by_user_id(params[:id], @user_id)
     not_found unless outlet
-    MultiJson.dump(outlet.appliance)
+    json(outlet.appliance)
   end
 
   post '/outlets' do
     protected!
-    new_outlet = MultiJson.load(request.body.read, symbolize_keys: true)
+    new_outlet = from_json
     home = Home.find_by(id: new_outlet[:home_id], user_id: @user_id)
     not_found unless home
     if new_outlet[:appliance_id]
@@ -39,7 +39,7 @@ class SmartplugApi < Sinatra::Application
     protected!
     outlet = DatabaseHelper.outlet_by_user_id(params[:id], @user_id)
     not_found unless outlet
-    updated_outlet = MultiJson.load(request.body.read, symbolize_keys: true)
+    updated_outlet = from_json
     if updated_outlet[:appliance_id]
       appliance = Appliance.find(updated_outlet[:appliance_id])
       home = Home.find_by(id: outlet[:home_id], user_id: @user_id)

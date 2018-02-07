@@ -98,11 +98,19 @@ class SmartplugApi < Sinatra::Application
   def save_record(record)
     if record.save
       status 201
-      MultiJson.dump(record)
+      json(record)
     else
       status 400
-      MultiJson.dump(record.errors.messages)
+      json(record.errors.messages)
     end
+  end
+
+  def json(object)
+    MultiJson.dump(object, pretty: true)
+  end
+
+  def from_json
+    MultiJson.load(request.body.read, symbolize_keys: true)
   end
 
   error IotHubError, SmartplugError do

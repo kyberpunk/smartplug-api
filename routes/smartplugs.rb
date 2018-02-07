@@ -4,7 +4,7 @@ class SmartplugApi < Sinatra::Application
     outlet = DatabaseHelper.outlet_by_user_id(params[:id], @user_id)
     not_found unless outlet
     smartplug_manager = create_smartplug_manager
-    MultiJson.dump(smartplug_manager.get_smartplug(outlet[:device_id]))
+    json(smartplug_manager.get_smartplug(outlet[:device_id]))
   end
 
   post '/smartplugs/:id/switch' do
@@ -21,7 +21,7 @@ class SmartplugApi < Sinatra::Application
     outlet = DatabaseHelper.outlet_by_user_id(params[:id], @user_id)
     not_found unless outlet
     power_monitor = create_power_monitor
-    MultiJson.dump(power_monitor.get_direct_data(outlet[:device_id]))
+    json(power_monitor.get_direct_data(outlet[:device_id]))
   end
 
   post '/smartplugs/:id/directdata/start' do

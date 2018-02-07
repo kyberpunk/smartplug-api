@@ -3,28 +3,28 @@ class SmartplugApi < Sinatra::Application
     protected!
     user = User.find(@user_id)
     not_found unless user
-    MultiJson.dump(id: user[:id], user_name: user[:user_name],
-                   email: user[:email])
+    json(id: user[:id], user_name: user[:user_name],
+         email: user[:email])
   end
 
   post '/users' do
-    new_user = MultiJson.load(request.body.read, symbolize_keys: true)
+    new_user = from_json
     user = User.new(user_name: new_user[:user_name], email: new_user[:email])
     pwd_user = PasswordUser.new(user)
     pwd_user.password = new_user[:password]
     if user.save
       status 201
-      MultiJson.dump(id: user[:id], user_name: user[:user_name],
-                     email: user[:email])
+      json(id: user[:id], user_name: user[:user_name],
+           email: user[:email])
     else
       status 400
-      MultiJson.dump(user.errors.messages)
+      json(user.errors.messages)
     end
   end
 
   patch '/users/self' do
     protected!
-    updated_user = MultiJson.load(request.body.read, symbolize_keys: true)
+    updated_user = from_json
     user = User.find(@user_id)
     pwd_user = PasswordUser.new(user)
     user[:user_name] = updated_user[:user_name] if updated_user[:user_name]
@@ -32,11 +32,11 @@ class SmartplugApi < Sinatra::Application
     pwd_user.password = updated_user[:password] if updated_user[:password]
     if user.save
       status 201
-      MultiJson.dump(id: user[:id], user_name: user[:user_name],
-                     email: user[:email])
+      json(id: user[:id], user_name: user[:user_name],
+           email: user[:email])
     else
       status 400
-      MultiJson.dump(user.errors.messages)
+      json(user.errors.messages)
     end
   end
 
@@ -49,7 +49,7 @@ class SmartplugApi < Sinatra::Application
   end
 
   post '/users/login' do
-    credentials = MultiJson.load(request.body.read, symbolize_keys: true)
+    credentials = from_json
     user = User.find_by(user_name: credentials[:user_name])
     halt 401 unless user
     pwd_user = PasswordUser.new(user)
@@ -57,9 +57,10 @@ class SmartplugApi < Sinatra::Application
       headers = {
         exp: Time.now.to_i + 86_400
       }
-      @token = JWT.encode({ user_id: user[:id] }, settings.signing_key, 'RS256', headers)
+      @token = JWT.encode({ user_id: user[:id] }, settings.signing_key, 'RS256',
+                          headers)
       status 200
-      MultiJson.dump(jwt_token: @token, expiration: headers[:exp])
+      json(jwt_token: @token, expiration: headers[:exp])
     else
       status 401
     end

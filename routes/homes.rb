@@ -2,18 +2,18 @@ class SmartplugApi < Sinatra::Application
   get '/homes' do
     protected!
     homes = Home.where(user_id: @user_id)
-    MultiJson.dump(homes)
+    json(homes)
   end
 
   get '/homes/:id' do
     protected!
     home = Home.find_by(id: params[:id], user_id: @user_id)
-    home ? MultiJson.dump(home) : not_found
+    home ? json(home) : not_found
   end
 
   post '/homes' do
     protected!
-    new_home = MultiJson.load(request.body.read)
+    new_home = from_json
     home = Home.new(new_home)
     home[:user_id] = @user_id
     save_record(home)
@@ -24,7 +24,7 @@ class SmartplugApi < Sinatra::Application
     home = Home.find_by(id: params[:id], user_id: @user_id)
     not_found unless home
     home[:user_id] = @user_id
-    updated_home = MultiJson.load(request.body.read)
+    updated_home = from_json
     updated_home[:id] = params[:id]
     home.update(updated_home)
     save_record(home)
@@ -43,6 +43,6 @@ class SmartplugApi < Sinatra::Application
     home = Home.find_by(id: params[:id], user_id: @user_id)
     not_found unless home
     appliances = DatabaseHelper.home_appliances_by_user_id(home[:id], @user_id)
-    MultiJson.dump(appliances)
+    json(appliances)
   end
 end
